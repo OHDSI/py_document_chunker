@@ -15,6 +15,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install -e .[dev] coverage[toml] pytest pytest-cov
+      - run: python -c "import nltk; nltk.download('punkt'); nltk.download('punkt_tab')"
       - run: pytest --cov=py_document_chunker --cov-report=xml
       - uses: codecov/codecov-action@v4
         with:

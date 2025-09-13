@@ -27,9 +27,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install ".[dev]"
 
+    - name: Download NLTK tokenizers
+      run: |
+        python -m nltk.downloader punkt
+        python -m nltk.downloader punkt_tab
+
     - name: Run unit tests
       run: |
-        pytest -ra --cov=searchpubmed --cov-report=xml
+        pytest -ra --cov=py_document_chunker --cov-report=xml
 
     # ---- OPTIONAL: upload coverage ----
     - name: Upload coverage to Codecov

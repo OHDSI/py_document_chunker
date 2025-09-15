@@ -28,10 +28,10 @@ nlp = [
     "nltk>3.8.1",
 ]
 spacy = [
-    "spacy>=3.7.0",
+    "spacy==3.7.2",
 ]
 semantic = [
-    "numpy>=2.0.0",
+    "numpy<2.0.0",
 ]
 code = [
     "tree-sitter>=0.21.0",

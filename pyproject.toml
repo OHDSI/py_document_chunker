@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "py_document_chunker"
-version = "0.2.0"
+version = "0.3.0"
 description = "A state-of-the-art Python package for advanced text segmentation (chunking)."
 readme = { file = "README.md", content-type = "text/markdown" }
 keywords = ["text chunking", "text splitting", "RAG", "Retrieval-Augmented Generation", "NLP", "natural language processing", "document processing", "langchain", "llamaindex"]

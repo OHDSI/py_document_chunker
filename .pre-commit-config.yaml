@@ -5,7 +5,18 @@ repos:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
+    -   id: check-toml
     -   id: check-added-large-files
+
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+    -   id: mypy
+        args: [--strict]
+        additional_dependencies: [
+            "types-beautifulsoup4",
+            "types-lxml"
+        ]
 
 -   repo: https://github.com/psf/black
     rev: 24.4.2
@@ -13,7 +24,7 @@ repos:
     -   id: black
 
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.6
+    rev: v0.4.4
     hooks:
     -   id: ruff
         args: [--fix, --exit-non-zero-on-fix]

@@ -1,0 +1,47 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+env/
+venv/
+pip-cache/
+*.egg-info/
+dist/
+build/
+
+# IDE and OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+docs/
+
+# Tests
+tests/
+
+# Config files
+.pre-commit-config.yaml
+pyproject.toml
+setup.py
+README.md
+LICENSE
+NOTICE
+
+# Other
+.dockerignore
+Dockerfile
+*.log
+*.db
+*.sqlite3

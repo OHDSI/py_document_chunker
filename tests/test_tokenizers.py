@@ -1,7 +1,6 @@
 from unittest.mock import patch
 
 import pytest
-
 from py_document_chunker import RecursiveCharacterSplitter
 from py_document_chunker.tokenizers import from_tiktoken
 

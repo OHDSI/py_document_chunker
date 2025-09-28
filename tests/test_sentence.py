@@ -5,7 +5,6 @@ import pytest
 # Attempt to import NLTK to determine if tests should be skipped.
 try:
     import nltk
-
     from py_document_chunker import SentenceSplitter
 
     # We also need to check for the 'punkt' model.
@@ -152,7 +151,9 @@ def test_empty_text_returns_empty_list():
 )
 def test_whitespace_preservation():
     """Tests that whitespace between sentences is preserved in the chunk content."""
-    text_with_newlines = "This is the first sentence.\n\nThis is the second.\n\n  And a third."
+    text_with_newlines = (
+        "This is the first sentence.\n\nThis is the second.\n\n  And a third."
+    )
     splitter = SentenceSplitter(chunk_size=100, overlap_sentences=0)
     chunks = splitter.split_text(text_with_newlines)
 
@@ -160,5 +161,5 @@ def test_whitespace_preservation():
     chunk = chunks[0]
 
     # The chunk content should be an exact slice from the original text.
-    expected_content = text_with_newlines[chunk.start_index:chunk.end_index]
+    expected_content = text_with_newlines[chunk.start_index : chunk.end_index]
     assert chunk.content == expected_content

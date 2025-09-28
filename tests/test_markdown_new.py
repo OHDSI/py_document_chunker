@@ -1,5 +1,3 @@
-import pytest
-
 from py_document_chunker import MarkdownSplitter
 
 # FRD Requirement Being Tested:
@@ -72,7 +70,9 @@ def test_handles_complex_block_types():
     splitter = MarkdownSplitter(chunk_size=1024, chunk_overlap=0)
     chunks = splitter.split_text(COMPLEX_MARKDOWN)
 
-    assert len(chunks) == 4, "Expected to split content into 4 chunks based on block type"
+    assert (
+        len(chunks) == 4
+    ), "Expected to split content into 4 chunks based on block type"
 
     # Chunk 1: Heading and intro paragraph
     assert chunks[0].content.strip().startswith("# Advanced Document")

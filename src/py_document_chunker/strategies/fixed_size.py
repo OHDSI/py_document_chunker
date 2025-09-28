@@ -44,7 +44,7 @@ class FixedSizeSplitter(RecursiveCharacterSplitter):
         if "keep_separator" in kwargs:
             del kwargs["keep_separator"]
 
-        super().__init__(separators=[""], keep_separator=True, *args, **kwargs)
+        super().__init__(separators=[""], keep_separator=True, **kwargs)
 
     def split_text(
         self, text: str, source_document_id: Optional[str] = None

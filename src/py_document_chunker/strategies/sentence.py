@@ -104,7 +104,9 @@ class SentenceSplitter(TextSplitter):
         for sent, start, end in processed_sentences:
             # To check the length, we should measure the length of the text slice,
             # not a string joined with spaces, to be accurate.
-            potential_start_index = current_chunk_sents[0][1] if current_chunk_sents else start
+            potential_start_index = (
+                current_chunk_sents[0][1] if current_chunk_sents else start
+            )
             potential_end_index = end
             potential_content_slice = text[potential_start_index:potential_end_index]
 

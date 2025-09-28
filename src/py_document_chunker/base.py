@@ -2,7 +2,7 @@ import copy
 import re
 import unicodedata
 from abc import ABC, abstractmethod
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 
 from .core import Chunk
 
@@ -30,7 +30,7 @@ class TextSplitter(ABC):
         chunk_overlap: int = 200,
         length_function: Optional[Callable[[str], int]] = None,
         normalize_whitespace: bool = False,
-        unicode_normalize: Optional[str] = None,
+        unicode_normalize: Optional[Literal["NFC", "NFKC", "NFD", "NFKD"]] = None,
         minimum_chunk_size: Optional[int] = None,
         min_chunk_merge_strategy: str = "merge_with_previous",
         strip_control_chars: bool = False,

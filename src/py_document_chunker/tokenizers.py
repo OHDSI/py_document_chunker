@@ -10,7 +10,7 @@ footprint minimal.
 from typing import Callable
 
 # A cache to store initialized tokenizer objects to avoid redundant setup.
-_tokenizer_cache = {}
+_tokenizer_cache: dict[str, Callable[[str], int]] = {}
 
 
 def from_tiktoken(encoding_name: str) -> Callable[[str], int]:

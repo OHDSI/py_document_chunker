@@ -1,10 +1,12 @@
-import pytest
 from typing import List
+
+import pytest
 
 # Attempt to import numpy to determine if tests should be skipped.
 try:
     import numpy as np
     from py_document_chunker.strategies.semantic import SemanticSplitter
+
     NUMPY_AVAILABLE = True
 except ImportError:
     NUMPY_AVAILABLE = False

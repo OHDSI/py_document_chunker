@@ -2,7 +2,6 @@ import copy
 from typing import List, Optional
 
 import pytest
-
 from py_document_chunker.base import TextSplitter
 from py_document_chunker.core import Chunk
 

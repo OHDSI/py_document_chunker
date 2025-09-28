@@ -1,7 +1,6 @@
 from unittest.mock import patch
 
 import pytest
-
 from py_document_chunker import MarkdownSplitter
 
 # FRD Requirement Being Tested:
@@ -136,6 +135,7 @@ def test_private_get_node_text_with_nested_children():
     to ensure the recursive search for the end line works correctly.
     """
     from unittest.mock import Mock
+
     splitter = MarkdownSplitter()
 
     COMPLEX_MD = """# L1
@@ -162,7 +162,8 @@ def test_private_get_node_text_with_nested_children():
 
     assert text.strip() == "## L2\n- Item"
     assert start == 5  # Start of "## L2"
-    assert end == 18 # End of "- Item\n"
+    assert end == 18  # End of "- Item\n"
+
 
 def test_markdown_splitting_without_trailing_newline():
     """
@@ -170,7 +171,7 @@ def test_markdown_splitting_without_trailing_newline():
     end with a trailing newline. This covers the `else len(text)` branch.
     """
     splitter = MarkdownSplitter(chunk_size=1000)
-    text = "# Section 1\n\nSome text" # No trailing newline
+    text = "# Section 1\n\nSome text"  # No trailing newline
 
     chunks = splitter.split_text(text)
 
@@ -178,6 +179,7 @@ def test_markdown_splitting_without_trailing_newline():
     assert chunks[0].content.strip().startswith("# Section 1")
     assert chunks[0].content.strip().endswith("Some text")
     assert chunks[0].end_index == len(text)
+
 
 def test_type_boundary_after_heading():
     """

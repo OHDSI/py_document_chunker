@@ -1,5 +1,4 @@
 import pytest
-
 from py_document_chunker import Chunk, FixedSizeSplitter
 
 

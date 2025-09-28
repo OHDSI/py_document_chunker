@@ -61,6 +61,9 @@ jobs:
       - name: Install dependencies
         run: poetry install --with dev --all-extras
 
+      - name: Download NLTK Data
+        run: poetry run python -m nltk.downloader punkt punkt_tab
+
       - name: Run tests with coverage
         run: poetry run pytest --cov=py_document_chunker --cov-report=xml
 

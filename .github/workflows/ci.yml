@@ -21,7 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.7
       - name: Set up Python
-        uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
+        uses: actions/setup-python@f677139bbe7f9c53596b41d547536d41a2f98ade # v5.0.0
         with:
           python-version: '3.12'
       - name: Run pre-commit
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.7
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
+        uses: actions/setup-python@f677139bbe7f9c53596b41d547536d41a2f98ade # v5.0.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -53,7 +53,7 @@ jobs:
 
       - name: Configure Poetry and cache dependencies
         id: cached-poetry-dependencies
-        uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
+        uses: actions/setup-python@f677139bbe7f9c53596b41d547536d41a2f98ade # v5.0.0
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'poetry'

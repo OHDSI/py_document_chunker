@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.7
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
       with:
         python-version: "3.x"
     - name: Install pypa/build
@@ -24,7 +25,7 @@ jobs:
     - name: Build a binary wheel and a source tarball
       run: python -m build
     - name: Store the distribution packages
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@85292f6da9d832f20ed37da356964da3537c620e # v4.3.4
       with:
         name: python-package-distributions
         path: dist/
@@ -43,9 +44,9 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@894218b26493203975a50d942a15ea8583e293b2 # v4.1.8
       with:
         name: python-package-distributions
         path: dist/
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      uses: pypa/gh-action-pypi-publish@99b3623f2427a6e161c1b87a719c836979493a05 # v1.9.0

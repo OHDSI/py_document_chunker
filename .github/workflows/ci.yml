@@ -1,25 +1,74 @@
-# .github/workflows/ci.yml
 name: CI
 
 on:
   push:
-    branches: [develop, main]
+    branches: [ main, develop ]
   pull_request:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  test:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.7
+      - name: Set up Python
+        uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
         with:
-          python-version: "3.11"
-      - run: pip install -e .[dev] coverage[toml] pytest pytest-cov
-      - name: Download NLTK tokenizers
+          python-version: '3.12'
+      - name: Run pre-commit
+        uses: pre-commit/action@2c7b3805fd2a0b8c635159f3869116e09154a48b # v3.0.1
+
+  test:
+    name: Test
+    needs: [lint]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.7
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
         run: |
-          python -m nltk.downloader punkt
-          python -m nltk.downloader punkt_tab
-      - run: pytest --cov=py_document_chunker --cov-report=xml
-      - uses: codecov/codecov-action@v4
+          pip install pipx
+          pipx install poetry
+
+      - name: Configure Poetry and cache dependencies
+        id: cached-poetry-dependencies
+        uses: actions/setup-python@82c7e631bb3cdc8da74f6ce091d1b694de23e466 # v5.1.0
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}   # not needed for public repos
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+      - name: Install dependencies
+        run: poetry install --with dev
+
+      - name: Run tests with coverage
+        run: poetry run pytest --cov=py_document_chunker --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@e28ff129e5465c2c0d3f9500527205da8c267726 # v4.5.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          flags: ${{ matrix.os }}-py${{ matrix.python-version }}
+          fail_ci_if_error: true

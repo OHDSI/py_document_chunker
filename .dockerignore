@@ -1,0 +1,35 @@
+# Version control
+.git/
+.gitignore
+
+# CI/CD configuration
+.github/
+
+# Documentation
+*.md
+
+# Python caches and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Test-related files
+tests/
+.pytest_cache/
+coverage.xml
+
+# Docker-specific files
+Dockerfile
+.dockerignore
+
+# Other
+NOTICE
+LICENSE

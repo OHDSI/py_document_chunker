@@ -59,7 +59,7 @@ jobs:
           cache: 'poetry'
 
       - name: Install dependencies
-        run: poetry install --with dev
+        run: poetry install --with dev --all-extras
 
       - name: Run tests with coverage
         run: poetry run pytest --cov=py_document_chunker --cov-report=xml

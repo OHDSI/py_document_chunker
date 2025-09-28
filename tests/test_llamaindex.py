@@ -1,39 +1,43 @@
+from typing import TYPE_CHECKING
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 from py_document_chunker.base import TextSplitter
 from py_document_chunker.core import Chunk
 from py_document_chunker.integrations.llamaindex import LlamaIndexWrapper
 
 # Mock LlamaIndex classes if not installed
-try:
+if TYPE_CHECKING:
     from llama_index.core.callbacks.base import CallbackManager
     from llama_index.core.schema import BaseNode, Document, TextNode
-except ImportError:
-    # Create dummy classes for testing if llama_index is not available
-    class BaseNode:
-        def __init__(self, text="", metadata=None, node_id="1"):
-            self.text = text
-            self.metadata = metadata or {}
-            self.node_id = node_id
+else:
+    try:
+        from llama_index.core.callbacks.base import CallbackManager
+        from llama_index.core.schema import BaseNode, Document, TextNode
+    except ImportError:
+        # Create dummy classes for testing if llama_index is not available
+        class BaseNode:
+            def __init__(self, text="", metadata=None, node_id="1"):
+                self.text = text
+                self.metadata = metadata or {}
+                self.node_id = node_id
 
-        def get_content(self):
-            return self.text
+            def get_content(self):
+                return self.text
 
-        def as_related_node_info(self):
-            return {"node_id": self.node_id}
+            def as_related_node_info(self):
+                return {"node_id": self.node_id}
 
-    class TextNode(BaseNode):
-        def __init__(self, text="", metadata=None, relationships=None, **kwargs):
-            super().__init__(text=text, metadata=metadata)
-            self.relationships = relationships or {}
+        class TextNode(BaseNode):
+            def __init__(self, text="", metadata=None, relationships=None, **kwargs):
+                super().__init__(text=text, metadata=metadata)
+                self.relationships = relationships or {}
 
-    class Document(BaseNode):
-        pass
+        class Document(BaseNode):
+            pass
 
-    class CallbackManager:
-        pass
+        class CallbackManager:
+            pass
 
 
 # Mock TextSplitter for testing

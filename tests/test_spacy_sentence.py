@@ -1,5 +1,4 @@
 import pytest
-
 from py_document_chunker import SpacySentenceSplitter
 
 # Mark the entire module as skipping if spacy is not available
@@ -177,7 +176,9 @@ def test_metadata_correctness():
 
 def test_negative_overlap_raises_error():
     """Tests that a negative overlap_sentences value raises a ValueError."""
-    with pytest.raises(ValueError, match="overlap_sentences must be a non-negative integer."):
+    with pytest.raises(
+        ValueError, match="overlap_sentences must be a non-negative integer."
+    ):
         SpacySentenceSplitter(overlap_sentences=-1)
 
 

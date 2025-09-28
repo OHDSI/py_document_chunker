@@ -59,7 +59,7 @@ def chunk_text_by_sentences(
             num_overlap = min(len(current_chunk_sentences), overlap_sentences)
             current_chunk_sentences = current_chunk_sentences[-num_overlap:]
             current_word_count = sum(len(s.split()) for s in current_chunk_sentences)
-        
+
         current_chunk_sentences.append(sentence)
         current_word_count += sentence_word_count
 
@@ -110,9 +110,7 @@ def chunk_by_section(
                         preamble, max_chunk_words, overlap_sentences
                     )
                 ):
-                    yield create_chunk_object(
-                        sentence_chunk, f"Preamble (Part {i+1})"
-                    )
+                    yield create_chunk_object(sentence_chunk, f"Preamble (Part {i+1})")
             else:
                 yield create_chunk_object(preamble, "Preamble")
 
@@ -155,9 +153,7 @@ def chunk_by_section(
                             f"{header} (Paragraph {i+1}, Part {j+1})",
                         )
                 else:
-                    yield create_chunk_object(
-                        para, f"{header} (Paragraph {i+1})"
-                    )
+                    yield create_chunk_object(para, f"{header} (Paragraph {i+1})")
 
 
 def process_documents(
@@ -178,7 +174,7 @@ def process_documents(
             try:
                 # Generate a single, unique ID for the entire document
                 document_uuid = str(uuid.uuid4())
-                
+
                 with open(file_path, "r", encoding="utf-8") as f_in:
                     content = f_in.read()
 
@@ -191,23 +187,21 @@ def process_documents(
                         content_cleaned, max_chunk_words, file_path, overlap_sentences
                     )
                 )
-                
+
                 # Step 2: Get the total number of chunks for this document.
                 total_chunks = len(chunks_for_file)
 
                 # Step 3: Iterate through the collected chunks to add new metadata and write to file.
                 for i, chunk in enumerate(chunks_for_file):
-
                     chunk["metadata"]["document_id"] = document_uuid
-                    
 
                     # Add the new metadata fields
                     chunk["metadata"]["chunk_index"] = i
                     chunk["metadata"]["total_chunks_in_doc"] = total_chunks
-                    
+
                     f_out.write(json.dumps(chunk) + "\n")
                 # --- MODIFICATION END ---
-                    
+
             except Exception as e:
                 print(f"Error processing file {file_path}: {e}")
 
